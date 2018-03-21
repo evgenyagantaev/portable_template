@@ -11,6 +11,8 @@
 
 #include <sched.h>
 
+#include "../inc/main.h"
+
 int main()
 {
 	int rows, columns;
@@ -34,6 +36,17 @@ int main()
 
 	sleep_interval.tv_sec = 0;
 	sleep_interval.tv_nsec = 10000000;	// 10 miliseconds
+	
+	pthread_t one_hz_timer_thread_handle;
+	pthread_t ten_hz_timer_thread_handle;
+	pthread_t one_minute_timer_thread_handle;
+	int threadId;
+	int parameter = 0;
+	
+	// start threads 
+	pthread_create(&one_hz_timer_thread_handle, NULL, one_hz_timer_thread, NULL);
+	pthread_create(&ten_hz_timer_thread_handle, NULL, ten_hz_timer_thread, NULL);
+	pthread_create(&one_minute_timer_thread_handle, NULL, one_minute_timer_thread, NULL);
 
 	int i, j, k;
 
@@ -41,10 +54,16 @@ int main()
 
 	while(1)
 	{
-		move(7, 11);	
+		move(0, 0);	
 		printw("Hello, Master!");
+		move(1, 0);	
+		printw("%d", get_one_minute_timer_counter());
+		move(2, 0);	
+		printw("%d", get_one_hz_timer_counter());
+		move(3, 0);	
+		printw("%d", get_ten_hz_timer_counter());
 		refresh();
-		//sleep(1);
+
 		nanosleep(&sleep_interval, NULL);
 	}
 

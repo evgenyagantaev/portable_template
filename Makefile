@@ -1,10 +1,21 @@
 TARGET=~/bin/hello
+OBJECTS1=obj/main.o obj/one_hz_timer_obj.o obj/ten_hz_timer_obj.o
+OBJECTS2=obj/one_minute_timer_obj.o
 LIBS=-lncurses -lpthread -lm
 
 all: $(TARGET)
 
-$(TARGET): main.c 
-	clang main.c -o $(TARGET) $(LIBS)
+$(TARGET): $(OBJECTS1) $(OBJECTS2)
+	clang  $(OBJECTS1) $(OBJECTS2) -o $(TARGET) $(LIBS)
+
+obj/main.o: src/main.c inc/main.h
+	clang -c src/main.c -o obj/main.o
+obj/one_hz_timer_obj.o: src/one_hz_timer_obj.c inc/one_hz_timer_obj.h
+	clang -c src/one_hz_timer_obj.c -o obj/one_hz_timer_obj.o
+obj/ten_hz_timer_obj.o: src/ten_hz_timer_obj.c inc/ten_hz_timer_obj.h
+	clang -c src/ten_hz_timer_obj.c -o obj/ten_hz_timer_obj.o
+obj/one_minute_timer_obj.o: src/one_minute_timer_obj.c inc/one_minute_timer_obj.h
+	clang -c src/one_minute_timer_obj.c -o obj/one_minute_timer_obj.o
 
 clean:
-	rm -rf *.o $(TARGET)
+	rm -rf obj/*.o $(TARGET)
