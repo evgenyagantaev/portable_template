@@ -36,6 +36,10 @@ int main()
 
 	sleep_interval.tv_sec = 0;
 	sleep_interval.tv_nsec = 10000000;	// 10 miliseconds
+
+	time_t start_time, current_time;
+
+	start_time = time(NULL);
 	
 	pthread_t one_hz_timer_thread_handle;
 	pthread_t ten_hz_timer_thread_handle;
@@ -54,13 +58,20 @@ int main()
 
 	while(1)
 	{
+
+		current_time = time(NULL);
+
 		move(0, 0);	
 		printw("Hello, Master!");
 		move(1, 0);	
-		printw("%d", get_one_minute_timer_counter());
+		printw("start   -> %s", ctime(&start_time));
 		move(2, 0);	
-		printw("%d", get_one_hz_timer_counter());
+		printw("current -> %s", ctime(&current_time));
 		move(3, 0);	
+		printw("%d", get_one_minute_timer_counter());
+		move(4, 0);	
+		printw("%d", get_one_hz_timer_counter());
+		move(5, 0);	
 		printw("%d", get_ten_hz_timer_counter());
 		refresh();
 
