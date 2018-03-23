@@ -44,6 +44,7 @@ int main()
 	pthread_t one_hz_timer_thread_handle;
 	pthread_t ten_hz_timer_thread_handle;
 	pthread_t one_minute_timer_thread_handle;
+	pthread_t udp_transmitter_thread_handle;
 	int threadId;
 	int parameter = 0;
 	
@@ -51,6 +52,7 @@ int main()
 	pthread_create(&one_hz_timer_thread_handle, NULL, one_hz_timer_thread, NULL);
 	pthread_create(&ten_hz_timer_thread_handle, NULL, ten_hz_timer_thread, NULL);
 	pthread_create(&one_minute_timer_thread_handle, NULL, one_minute_timer_thread, NULL);
+	pthread_create(&udp_transmitter_thread_handle, NULL, udp_transmitter_thread, NULL);
 
 	int i, j, k;
 
